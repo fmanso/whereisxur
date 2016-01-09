@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0-*",
+  "frameworks": {
+    "net452": {
+      "wrappedProject": "../../WhereIsXur/WhereIsXur.csproj",
+      "bin": {
+        "assembly": "../../WhereIsXur/obj/{configuration}/WhereIsXur.dll",
+        "pdb": "../../WhereIsXur/obj/{configuration}/WhereIsXur.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "8.0.2"
+      }
+    },
+    "net45": {
+      "wrappedProject": "../../WhereIsXur/WhereIsXur.csproj",
+      "bin": {
+        "assembly": "../../WhereIsXur/obj/{configuration}/WhereIsXur.dll",
+        "pdb": "../../WhereIsXur/obj/{configuration}/WhereIsXur.pdb"
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "8.0.2"
+      }
+    }
+  }
+}
