@@ -5,10 +5,19 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace WhereIsXur
+namespace WhereIsXur.Web.Services
 {
+    /// <summary>
+    /// This service has utility methods to tell if Xur is working or not. 
+    /// Search on reddit the Xur's Megathread
+    /// And parse its location from the reddit
+    /// </summary>
     public class WhereIsXurService
     {       
+        /// <summary>
+        /// Given the the body of the reddit Xur's Megathread, returns the Xur's location.
+        /// </summary>
+        /// <param name="body">Body of the reddit Xur's Megathread</param>        
         public string ParseLocation(string body)
         {
             var regExp = new Regex(@"Location:\*\*\n\n(?<location>.*?)\n\n");
@@ -16,6 +25,11 @@ namespace WhereIsXur
             return match.Groups["location"].Value;
         }
 
+        /// <summary>
+        /// Tells if Xur is working. Xur is working from UTC FRIDAY 9.00 AM TO UTC SUNDAY 9.00 AM
+        /// </summary>
+        /// <param name="dateTime">The time to tell if Xur is working</param>
+        /// <returns>True if he is working, False otherwise</returns>
         public bool IsXurWorking(DateTime dateTime)
         {
             var utcTime = dateTime.ToUniversalTime();
@@ -37,11 +51,17 @@ namespace WhereIsXur
             return false;
         }
 
-        public async Task<string> SearchPost(DateTime today)
+        /// <summary>
+        /// Search the reddit Xur's Megathread for the given date
+        /// Return null if it is not found or if in the date, xur is not working
+        /// </summary>
+        /// <param name="date">The date</param>
+        /// <returns>Body of the reddit Xur's Megathread. Null if it is not found.</returns>
+        public async Task<string> SearchPost(DateTime date)
         {
-            if (!IsXurWorking(today)) return null;
+            if (!IsXurWorking(date)) return null;
 
-            var utcTime = today.ToUniversalTime();
+            var utcTime = date.ToUniversalTime();
             var offsetDays = 0;
 
             if (utcTime.DayOfWeek == DayOfWeek.Saturday) offsetDays = 1;
