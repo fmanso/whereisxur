@@ -13,7 +13,7 @@ namespace WhereIsXur.Web.Services
     /// And parse its location from the reddit
     /// </summary>
     public class WhereIsXurService
-    {       
+    {
         /// <summary>
         /// Given the the body of the reddit Xur's Megathread, returns the Xur's location.
         /// </summary>
@@ -78,7 +78,7 @@ namespace WhereIsXur.Web.Services
 
             var json = (JObject)JsonConvert.DeserializeObject(body);
 
-            var children = (JArray) json["data"]["children"];
+            var children = (JArray)json["data"]["children"];
 
             if (children.Count == 0) return null;
 
@@ -86,7 +86,7 @@ namespace WhereIsXur.Web.Services
             {
                 if ((string)child["data"]["title"] == $"Xur Megathread [{searchDate}]")
                 {
-                    return (string) child["data"]["selftext"];
+                    return (string)child["data"]["selftext"];
                 }
             }
 

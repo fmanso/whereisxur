@@ -1,18 +1,23 @@
 ﻿using System;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
+using System.Web.Http;
 using WhereIsXur.Web.Services;
 
 namespace WhereIsXur.Web.Controllers
 {
-    [Route("api/[controller]")]
-    public class SearchXurController : Controller
+    public class WhereIsXurController : ApiController
     {
-        [HttpGet]
-        public async Task<string> Get()
+        // GET: WhereIsXur
+        public async Task<HttpResponseMessage> Get()
         {
-            var today = DateTime.UtcNow;
-            return await SearchXur(today);
+            var location = await SearchXur(DateTime.UtcNow);
+
+            return new HttpResponseMessage()
+            {
+                Content = new StringContent(location, Encoding.ASCII)
+            };
         }
 
         private static async Task<string> SearchXur(DateTime today)
@@ -38,13 +43,6 @@ namespace WhereIsXur.Web.Controllers
 
                 return location;
             }
-        }
-
-        [HttpGet("{day}/{month}/{year}")]
-        public async Task<string> GetSpecificDay(int day, int month, int year)
-        {
-            var date = new DateTime(year, month, day);
-            return await SearchXur(date);
         }
     }
 }
