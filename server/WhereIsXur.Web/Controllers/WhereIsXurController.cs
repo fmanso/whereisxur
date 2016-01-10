@@ -25,14 +25,14 @@ namespace WhereIsXur.Web.Controllers
             var whereIsXur = new WhereIsXurService();
             if (!whereIsXur.IsXurWorking(today))
             {
-                return "Xur is not working right now";
+                return "Xur is out of office right now";
             }
             else
             {
                 var post = await whereIsXur.SearchPost(today);
                 if (post == null)
                 {
-                    return "Still searching for Xur. Come back in a couple of minutes.";
+                    return "Searching for Xur...\nCome back in a couple of minutes.";
                 }
 
                 var location = whereIsXur.ParseLocation(post);
