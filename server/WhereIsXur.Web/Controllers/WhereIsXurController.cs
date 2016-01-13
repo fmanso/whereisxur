@@ -15,7 +15,7 @@ namespace WhereIsXur.Web.Controllers
         [Route("api/whereisxur")]
         public async Task<HttpResponseMessage> Get()
         {
-            var location = await SearchXur(new DateTime(2016, 1, 9));
+            var location = await SearchXur(DateTime.UtcNow);
 
             return new HttpResponseMessage()
             {
@@ -26,7 +26,7 @@ namespace WhereIsXur.Web.Controllers
         [Route("api/whereisxur/items")]
         public async Task<HttpResponseMessage> GetItems()
         {
-            var data = await SearchItems(new DateTime(2016, 1, 9));
+            var data = await SearchItems(DateTime.UtcNow);
 
             return new HttpResponseMessage()
             {
