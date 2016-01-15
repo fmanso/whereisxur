@@ -21,7 +21,8 @@ namespace WhereIsXur.Web.Services
         /// <param name="body">Body of the reddit Xur's Megathread</param>        
         public string ParseLocation(string body)
         {
-            var regExp = new Regex(@"Location:\*\*\n\n(?<location>.*?)\n\n");
+            //**Location:**\r\n\r\n*Beep boop! We're searching!*\r\n\r\n
+            var regExp = new Regex(@"Location:\*\*[\r\n\*]+(?<location>.*?)[\*\r\n]+");
             var match = regExp.Match(body);
             return match.Groups["location"].Value;
         }
